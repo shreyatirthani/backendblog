@@ -20,6 +20,15 @@ public class login implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    private int active;
     public String getEmail() {
         return email;
     }
@@ -40,4 +49,13 @@ public class login implements Serializable {
 
     String password;
 
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

@@ -1,30 +1,48 @@
 package com.caseStudy.Ecommerce.controller;
 
-import com.caseStudy.Ecommerce.modal.items;
-import com.caseStudy.Ecommerce.modal.login;
-import com.caseStudy.Ecommerce.repository.loginrepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
+import javax.sql.DataSource;
 
-@Controller
-@RestController
-@RequestMapping("/apl")
-public class loginsignup {
+@EnableGlobalMethodSecurity(prePostEnabled=true)
+@EnableWebSecurity
+@Configuration
+public class loginsignup  extends WebSecurityConfigurerAdapter {
     @Autowired
-loginrepository al;
-    @GetMapping("/log")
-    public List<login> getAllLogins()
-    {
-        return al.findAll();
+    private DataSource datasource;
+    @Autowired
+    public void globalsecurityconfig(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .jdbcAuthentication().dataSource(datasource)
+                .usersByUsernameQuery("select email, password ,active from login where email=?")
+                .authoritiesByUsernameQuery("select email,password from login where email=?");
     }
-    @PostMapping("/add")
-    public login createNewItem(@Valid @RequestBody login al1)
-    {
-        return al.save(al1);
+    @Override
+    protected void configure(HttpSecurity http)  throws Exception{
+        http.csrf().disable()
+                               .authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                               .antMatchers("/signup").permitAll()
+                               .anyRequest().authenticated()
+                               .and().httpBasic();
+                                http.cors();
     }
+    @Bean
+    public PasswordEncoder passwordEncoder()
+    {
+        return NoOpPasswordEncoder.getInstance();
+    }
+
 
 }
