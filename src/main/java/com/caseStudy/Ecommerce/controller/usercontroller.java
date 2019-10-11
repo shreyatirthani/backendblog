@@ -13,11 +13,13 @@ import javax.validation.Valid;
 public class usercontroller {
     @Autowired
     userrepository ul;
-   /* @PostMapping("/createuser")
-    public loginsignup createNewuser(@Valid @RequestBody login ifc)
+    @PostMapping("/sign")
+    public login createNewuser(@Valid @RequestBody login ifc)
     {
+        ifc.setActive(1);
+        ifc.setRole("user");
         return ul.save(ifc);
-    }*/
+    }
     @GetMapping("/validateuser")
     public String validate()
     {
