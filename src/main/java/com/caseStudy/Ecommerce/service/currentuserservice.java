@@ -67,6 +67,7 @@ public class currentuserservice {
         /*Long id= userRepository.findByEmail(email).get().getId();
         return id;*/
         return ur.findByEmail(email).get().getId();
+
     }
 public String getuserrole(Principal principal)
 {

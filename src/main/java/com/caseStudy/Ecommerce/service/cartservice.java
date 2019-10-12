@@ -56,6 +56,27 @@ public class cartservice {
      //   return (cart) cr.findByUser(user).get();
 
     }
+    public cart increment(Long id, Long product_id)
+    {
+        items items=it.findById(product_id).get();
+        login login =ur.findById(id).get();
+        cart cart=cr.findByLoginAndItems(login,items).get();
+        cart.setQuantity(cart.getQuantity()+1);
+       return(cr.saveAndFlush(cart));
+        //return "this item is incremented";
+
+    }
+    public cart decrement(Long id, Long product_id)
+    {
+        items items=it.findById(product_id).get();
+        login login =ur.findById(id).get();
+        cart cart=cr.findByLoginAndItems(login,items).get();
+        cart.setQuantity(cart.getQuantity()-1);
+        return(cr.saveAndFlush(cart));
+        //return "this item is deccremented";
+
+    }
+
     @Transactional
     public String removeproduct(Long userid,Long product_id)
     {

@@ -33,7 +33,7 @@ public class loginsignup  extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http)  throws Exception{
         http.csrf().disable()
                                .authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                               .antMatchers("/signup").permitAll()
+                               .antMatchers("/apl/sign").permitAll()
                                .anyRequest().authenticated()
                                .and().httpBasic();
                                 http.cors();

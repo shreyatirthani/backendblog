@@ -83,6 +83,16 @@ public class cartcontroller {
     public String addtocart(@PathVariable Long ProductId, Principal principal){
         return cartservice.addtocart(currentuserservice.getuserid(principal),ProductId);
     }
+    @RequestMapping(value = "/increment/receive/{ProductId}", method = RequestMethod.GET)
+    @ResponseBody
+    public cart increment(@PathVariable Long ProductId, Principal principal){
+        return cartservice.increment(currentuserservice.getuserid(principal),ProductId);
+    }
+    @RequestMapping(value = "/decrement/receive/{ProductId}", method = RequestMethod.GET)
+    @ResponseBody
+    public cart decrement(@PathVariable Long ProductId, Principal principal){
+        return cartservice.decrement(currentuserservice.getuserid(principal),ProductId);
+    }
 
 //    @RequestMapping(value = "/removefromcart/receive/{productid}", method = RequestMethod.GET)
 //    @ResponseBody
