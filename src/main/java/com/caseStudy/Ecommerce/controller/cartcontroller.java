@@ -1,6 +1,8 @@
 package com.caseStudy.Ecommerce.controller;
 
 import com.caseStudy.Ecommerce.modal.cart;
+import com.caseStudy.Ecommerce.modal.orderhistory;
+import com.caseStudy.Ecommerce.modal.profile;
 import com.caseStudy.Ecommerce.service.cartservice;
 import com.caseStudy.Ecommerce.service.currentuserservice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,12 +108,20 @@ public class cartcontroller {
         return cartservice.showcart((long) currentuserservice.getuserid(principal));
 
     }
+   @RequestMapping(value = "/checkout", method = RequestMethod.GET)
+    @ResponseBody
+    public List<orderhistory> checkout(Principal principal){
+        return cartservice.checkout(currentuserservice.getuserid(principal));
+
+    }
+
    /* @RequestMapping(value = "/add/{id}", method = RequestMethod.POST)
     @ResponseBody
 public cart addproduct(@PathVariable Long productid,Principal principal)
     {
         return cartservice.addproduct(currentuserservice.getuserid(principal),productid);
     }*/
+
 
 
 

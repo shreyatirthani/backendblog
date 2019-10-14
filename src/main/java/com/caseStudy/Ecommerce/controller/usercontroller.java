@@ -2,10 +2,14 @@ package com.caseStudy.Ecommerce.controller;
 
 import com.caseStudy.Ecommerce.modal.login;
 import com.caseStudy.Ecommerce.repository.userrepository;
+import com.caseStudy.Ecommerce.service.cartservice;
+import com.caseStudy.Ecommerce.service.currentuserservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/apl")
@@ -13,6 +17,14 @@ import javax.validation.Valid;
 public class usercontroller {
     @Autowired
     userrepository ul;
+    private cartservice cartservice;
+    private currentuserservice currentuserservice;
+    @Autowired
+    public usercontroller(cartservice cartservice,currentuserservice currentuserservice)
+    {
+        this.cartservice=cartservice;
+        this.currentuserservice=currentuserservice;
+    }
     @PostMapping("/sign")
     public login createNewuser(@Valid @RequestBody login ifc)
     {
@@ -25,6 +37,11 @@ public class usercontroller {
     {
         return "\"user is valid\"";
     }
-
+@GetMapping("/show")
+@ResponseBody
+    public login profile(Principal principal)
+{
+    return cartservice.showprofile(currentuserservice.getuserid(principal));
+}
 
 }
