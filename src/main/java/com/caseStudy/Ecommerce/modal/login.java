@@ -59,5 +59,23 @@ public class login implements Serializable {
         this.role = role;
     }
 
+    public String getPhoneno() {
+        return phoneno;
+    }
+
+    public void setPhoneno(String phoneno) {
+        this.phoneno = phoneno;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String phoneno;
+    private String address;
 
 }

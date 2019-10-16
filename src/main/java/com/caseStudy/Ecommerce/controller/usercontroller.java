@@ -43,5 +43,14 @@ public class usercontroller {
 {
     return cartservice.showprofile(currentuserservice.getuserid(principal));
 }
+@PutMapping("/update")
+    public login update(@Valid @RequestBody login users)
+{
+
+   users.setActive(1);
+   users.setRole("user");
+   return(ul.save(users));
+  // return users;
+}
 
 }
