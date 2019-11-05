@@ -1,6 +1,7 @@
 package com.caseStudy.Ecommerce.controller;
 
 import com.caseStudy.Ecommerce.modal.cart;
+import com.caseStudy.Ecommerce.modal.items;
 import com.caseStudy.Ecommerce.modal.orderhistory;
 import com.caseStudy.Ecommerce.modal.profile;
 import com.caseStudy.Ecommerce.service.cartservice;
@@ -8,6 +9,7 @@ import com.caseStudy.Ecommerce.service.currentuserservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -114,6 +116,13 @@ public class cartcontroller {
         return cartservice.checkout(currentuserservice.getuserid(principal));
 
     }
+    @RequestMapping(value = "/clear", method = RequestMethod.GET)
+    @ResponseBody
+    public String clearcart(Principal principal){
+        return cartservice.clearcart(currentuserservice.getuserid(principal));
+
+    }
+
 
    /* @RequestMapping(value = "/add/{id}", method = RequestMethod.POST)
     @ResponseBody

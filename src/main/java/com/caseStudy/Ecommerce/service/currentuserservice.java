@@ -66,7 +66,9 @@ public class currentuserservice {
         String email = principal.getName();
         /*Long id= userRepository.findByEmail(email).get().getId();
         return id;*/
-        return ur.findByEmail(email).get().getId();
+        login login=ur.findByEmail(email).get();
+        return login.getId();
+       // return ur.findByEmail(email).get().getId();
 
     }
 public String getuserrole(Principal principal)

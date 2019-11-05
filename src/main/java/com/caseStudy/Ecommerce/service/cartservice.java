@@ -69,7 +69,9 @@ public class cartservice {
         items items = it.findById(product_id).get();
         login login = ur.findById(id).get();
         cart cart = cr.findByLoginAndItems(login, items).get();
-        cart.setQuantity(cart.getQuantity() - 1);
+        if(cart.getQuantity()>0) {
+            cart.setQuantity(cart.getQuantity() - 1);
+        }
         return (cr.saveAndFlush(cart));
         //return "this item is deccremented";
 
@@ -134,6 +136,13 @@ public class cartservice {
 public login showprofile(Long userid)
 { return ur.findById(userid).get();
 
+}
+@Transactional
+public  String clearcart(Long userid)
+{
+    login login=ur.findById(userid).get();
+    cr.deleteByLogin(login);
+    return "cart is cleared";
 }
 
 }

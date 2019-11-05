@@ -70,8 +70,22 @@ public List<items> getAlldetails()
         items updatedNote = it.save(note);
         return updatedNote;
     }
+    @PostMapping("/createproduct")
+    public items createproduct(@Valid @RequestBody items item)
+    {
+        return it.save(item);
+    }
+    @PutMapping("/editproduct/{id}")
+    public items editproduct(@PathVariable(value="id") Long productid,@Valid @RequestBody items item)
+    {
+        items prod=it.findById(productid).get();
+      /*  prod.setName(item.getName());
+        prod.setPrice(item.getPrice());
+        prod.setCategory(item.getCategory());
+        prod.setDetails(item.getDetails());*/
+        return it.save(item);
 
-
+    }
 
     }
 

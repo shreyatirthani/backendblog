@@ -17,5 +17,7 @@ public interface cartrepository extends JpaRepository<cart,Long> {
     Optional<cart> findByLoginAndItems(login login, items items);
     List<cart> findAllByLogin(login login);
     void deleteByLoginAndItems(Optional<login>login,Optional<items>items);
+
+    void deleteByLogin(login login);
 //    List<cart> findByLoginAndItems_Active(login user, int i);
 }
