@@ -38,4 +38,14 @@ public class subscribe1 {
     login login1;
     @ManyToOne
     login login;
+
+   public int getTimes() {
+        return times;
+    }
+
+    public void setTimes(int times) {
+        this.times = times;
+    }
+
+    private int times;
 }

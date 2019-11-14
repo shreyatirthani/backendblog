@@ -94,10 +94,16 @@ public subscribe1 subscribe1(Long userid,String name)
 {
     login login1=ur.findByEmail(name).get();
     login login=ur.findById(userid).get();
-    subscribe1 st=new subscribe1();
-    st.setLogin(login);
-    st.setLogin1(login1);
+    subscribe1 st = new subscribe1();
+    if(!sb1.findByLoginAndLogin1(login,login1).isPresent()) {
+      //  subscribe1 st = new subscribe1();
+        //st.setTimes(1);
+        st.setLogin(login);
+        st.setLogin1(login1);
+      //  return sb1.save(st);
+    }
     return sb1.save(st);
+   // return sb1.save(st);
 }
 public List<subscribe1>showsubscribe1(Long userid)
 {
@@ -112,5 +118,16 @@ public String delfollower(Long userid,String email)
     sb1.deleteByLoginAndLogin1(login1,login);
     return "deletion of my follower";
 }
-
+public Boolean following(Long userid,String email)
+{ login login=ur.findByEmail(email).get();
+    login login1=ur.findById(userid).get();
+    if(sb1.findByLoginAndLogin1(login1,login).isPresent())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 }

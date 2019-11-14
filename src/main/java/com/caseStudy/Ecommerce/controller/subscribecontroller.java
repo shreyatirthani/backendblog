@@ -104,4 +104,18 @@ public class subscribecontroller {
     {
         return subuserservice.delfollower(subservice.gettingid(principal),name);
     }
+    @GetMapping("/following/{name}")
+    @ResponseBody
+    public String following(Principal principal,@PathVariable(value="name") String name )
+    {
+     if(subuserservice.following(subservice.gettingid(principal),name)==true)
+     {
+         return "\"true\"";
+     }
+     else
+     {
+         return "\"false\"";
+     }
+    }
+
 }
